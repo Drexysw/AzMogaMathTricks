@@ -16,31 +16,45 @@
             {
                 return false;
             }
-            if (!board.IsOnBoard(row, col))
+            if (board.IsNotBoard(row, col))
             {
                 return false;
             }
             GetNextPosition(row, col);
             string operation = board.GetValue(row, col);
-           
-            IncreasePlayerPoints();
+            IncreasePlayerPoints(operation);
             return true;
         }
 
-        private bool IsSurroundedByUsedOperations()
+        private void IncreasePlayerPoints(string operation)
         {
-
-        }
-
-        private void IncreasePlayerPoints()
-        {
-
+            int number = int.Parse(board.GetValue(CurrentRowPos, CurrentColPos).Skip(1).ToString());
+            switch (operation)
+            {
+                case "+":
+                    PlayerPoints += number;
+                    break;
+                case "-":
+                    PlayerPoints -= number;
+                    break;
+                case "*":
+                    PlayerPoints *= number;
+                    break;
+                case "/": 
+                    PlayerPoints /= number;
+                    break;
+            }
         }
 
         private void GetNextPosition(int row,int col)
         {
             CurrentRowPos = row;
             CurrentColPos = col;
+        }
+
+        private bool IsSurroundedByUsedOperations()
+        {
+
         }
 
     }
